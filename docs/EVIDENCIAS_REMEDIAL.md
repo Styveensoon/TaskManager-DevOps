@@ -13,7 +13,7 @@ Este documento concentra las evidencias de las 7 fases de DevOps solicitadas en 
 - Descripcion: "Sistema web para la gestion de tareas."
 - Visibilidad: Public.
 - README.md inicial activado.
-- URL del repositorio: `https://github.com/USUARIO/TaskManager-DevOps`
+- URL del repositorio: `https://github.com/Styveensoon/TaskManager-DevOps`
 
 ### Actividad 2 - Tablero GitHub Projects
 - Vista tipo **Board** seleccionada.
@@ -338,4 +338,22 @@ Todos los integrantes participan en revisiones de codigo y conocen las fases de 
 12. URL pública de la aplicación.
 13. Documento de resultados y conclusiones (este archivo).
 
-> Nota operativa: en este entorno no se dispuso de credenciales ni de CLI de GitHub, por lo que el repositorio se inicializó localmente (`git init`, rama `main`, commits en `main`). Para completar la entrega se debe: crear el repositorio remoto `TaskManager-DevOps` en GitHub, agregarlo como remote (`git remote add origin https://github.com/USUARIO/TaskManager-DevOps.git`), hacer `git push -u origin main`, crear el tablero Projects, los Issues, el Release v1.0.0 y ejecutar los workflows de Actions. Todas las capturas de la aplicación funcionando ya están en la carpeta `docs/`.
+> Nota operativa: todo el trabajo está configurado y pusheado al repositorio remoto `https://github.com/Styveensoon/TaskManager-DevOps` (rama `main`).
+
+## Recursos en GitHub (repositorio remoto)
+
+| Recurso | Detalle | URL |
+|---------|---------|-----|
+| Repositorio | TaskManager-DevOps (público, rama main) | https://github.com/Styveensoon/TaskManager-DevOps |
+| Tablero Projects | TaskManager-DevOps Board (Backlog, To Do, In Progress, Review, Done) | https://github.com/users/Styveensoon/projects/1 |
+| Issue #1 | Crear la estructura inicial del proyecto (Plan, Backlog, Prioridad Alta) | https://github.com/Styveensoon/TaskManager-DevOps/issues/1 |
+| Issue #2 | Diseñar la interfaz del sistema (Code, To Do, Prioridad Media) | https://github.com/Styveensoon/TaskManager-DevOps/issues/2 |
+| Issue #3 | Implementar el registro de tareas (Code, In Progress, Prioridad Alta) | https://github.com/Styveensoon/TaskManager-DevOps/issues/3 |
+| Issue #4 | Implementar la edición de tareas (Code, To Do, Prioridad Media) | https://github.com/Styveensoon/TaskManager-DevOps/issues/4 |
+| Issue #5 | Implementar las pruebas unitarias (Test, Backlog, Prioridad Alta) | https://github.com/Styveensoon/TaskManager-DevOps/issues/5 |
+| PR #6 | feature/registro-tareas → main | https://github.com/Styveensoon/TaskManager-DevOps/pull/6 |
+| PR #7 | feature/editar-tareas → main | https://github.com/Styveensoon/TaskManager-DevOps/pull/7 |
+| PR #8 | feature/eliminar-tareas → main | https://github.com/Styveensoon/TaskManager-DevOps/pull/8 |
+| Release v1.0.0 | Primera versión estable de TaskManager | https://github.com/Styveensoon/TaskManager-DevOps/releases/tag/v1.0.0 |
+| GitHub Actions CI | Integración Continua - run exitoso en main (7 pruebas aprobadas) | https://github.com/Styveensoon/TaskManager-DevOps/actions/runs/45448370335 |
+| Log de CI exitoso | Evidencia de ejecución de pruebas en GitHub Actions | docs/ci_ejecucion_exitosa.log |
