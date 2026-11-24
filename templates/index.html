@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TaskManager - Gestion de Tareas</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>TaskManager</h1>
+      <p>Sistema web para la gestion de tareas de empleados</p>
+    </header>
+
+    <section class="card">
+      <h2>Nueva tarea</h2>
+      <form id="form-tarea">
+        <div class="campo">
+          <label for="nombre">Nombre de la tarea *</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej. Elaborar documentacion" required />
+        </div>
+        <div class="campo">
+          <label for="descripcion">Descripcion</label>
+          <textarea id="descripcion" name="descripcion" placeholder="Detalles de la actividad"></textarea>
+        </div>
+        <div class="campos-fila">
+          <div class="campo">
+            <label for="prioridad">Prioridad</label>
+            <select id="prioridad" name="prioridad">
+              <option value="Alta">Alta</option>
+              <option value="Media" selected>Media</option>
+              <option value="Baja">Baja</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="estado">Estado</label>
+            <select id="estado" name="estado">
+              <option value="Pendiente">Pendiente</option>
+              <option value="En Proceso">En Proceso</option>
+              <option value="Terminada">Terminada</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" id="btn-guardar">Guardar tarea</button>
+      </form>
+      <div id="mensaje" class="mensaje"></div>
+    </section>
+
+    <section class="card">
+      <h2>Listado de tareas</h2>
+      <div id="filtros" class="filtros">
+        <span>Filtrar por estado: </span>
+        <button class="btn-filtro activo" data-estado="todos">Todos</button>
+        <button class="btn-filtro" data-estado="Pendiente">Pendiente</button>
+        <button class="btn-filtro" data-estado="En Proceso">En Proceso</button>
+        <button class="btn-filtro" data-estado="Terminada">Terminada</button>
+      </div>
+      <table id="tabla-tareas">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Prioridad</th>
+            <th>Estado</th>
+            <th>Fecha creacion</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpo-tabla">
+        </tbody>
+      </table>
+      <p id="vacio" class="vacio" style="display:none;">No hay tareas registradas.</p>
+    </section>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
