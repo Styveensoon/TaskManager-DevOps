@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TaskManager - Gestion de Tareas (Demo en GitHub Pages)</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .banner {
+      background: #1f6f8b;
+      color: #fff;
+      padding: 16px 24px;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .banner h2 { margin: 0; font-size: 1.3rem; }
+    .banner p { margin: 6px 0 0; opacity: 0.95; font-size: 0.95rem; }
+    .repo-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .repo-links .btn {
+      background: #2e7d32;
+      color: #fff;
+    }
+    .repo-links .btn-secondary { background: #5a6b7a; }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <h2>TaskManager - Gestion de Tareas</h2>
+    <p>Demo desplegada en GitHub Pages (version estatica con almacenamiento local).</p>
+    <p>Codigo fuente completo: <a href="https://github.com/Styveensoon/TaskManager-DevOps" style="color:#fff; text-decoration:underline;">github.com/Styveensoon/TaskManager-DevOps</a></p>
+  </div>
+
+  <div class="repo-links">
+    <a href="https://github.com/Styveensoon/TaskManager-DevOps" class="btn btn-primary">Ver repositorio</a>
+    <a href="https://github.com/Styveensoon/TaskManager-DevOps/releases/tag/v1.0.0" class="btn btn-secondary">Release v1.0.0</a>
+    <a href="https://github.com/Styveensoon/TaskManager-DevOps/actions" class="btn btn-secondary">GitHub Actions CI</a>
+  </div>
+
+  <div class="container">
+    <section class="card">
+      <h2>Nueva tarea</h2>
+      <form id="form-tarea">
+        <div class="campo">
+          <label for="nombre">Nombre de la tarea *</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej. Elaborar documentacion" required />
+        </div>
+        <div class="campo">
+          <label for="descripcion">Descripcion</label>
+          <textarea id="descripcion" name="descripcion" placeholder="Detalles de la actividad"></textarea>
+        </div>
+        <div class="campos-fila">
+          <div class="campo">
+            <label for="prioridad">Prioridad</label>
+            <select id="prioridad" name="prioridad">
+              <option value="Alta">Alta</option>
+              <option value="Media" selected>Media</option>
+              <option value="Baja">Baja</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="estado">Estado</label>
+            <select id="estado" name="estado">
+              <option value="Pendiente">Pendiente</option>
+              <option value="En Proceso">En Proceso</option>
+              <option value="Terminada">Terminada</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" id="btn-guardar">Guardar tarea</button>
+      </form>
+      <div id="mensaje" class="mensaje"></div>
+    </section>
+
+    <section class="card">
+      <h2>Listado de tareas</h2>
+      <div id="filtros" class="filtros">
+        <span>Filtrar por estado: </span>
+        <button class="btn-filtro activo" data-estado="todos">Todos</button>
+        <button class="btn-filtro" data-estado="Pendiente">Pendiente</button>
+        <button class="btn-filtro" data-estado="En Proceso">En Proceso</button>
+        <button class="btn-filtro" data-estado="Terminada">Terminada</button>
+      </div>
+      <table id="tabla-tareas">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Prioridad</th>
+            <th>Estado</th>
+            <th>Fecha creacion</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpo-tabla"></tbody>
+      </table>
+      <p id="vacio" class="vacio" style="display:none;">No hay tareas registradas.</p>
+    </section>
+
+    <section class="card">
+      <h2>Sobre este despliegue</h2>
+      <p>Esta es una version estatica desplegada en <strong>GitHub Pages</strong>. Los datos se guardan en el almacenamiento local del navegador (localStorage) y se pierden al limpiar los datos del sitio.</p>
+      <p>Para la version completa con backend Flask + SQLite, descarga el repositorio y ejecuta:</p>
+      <pre style="background:#f1f6f9; padding:12px; border-radius:6px; font-size:0.9rem;">
+git clone https://github.com/Styveensoon/TaskManager-DevOps.git
+cd TaskManager-DevOps
+pip install -r requirements.txt
+python app.py
+      </pre>
+    </section>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "taskmanager_tareas";
+    let filtroActual = "todos";
+
+    function obtenerTareas() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch { return []; }
+    }
+    function guardarTareas(tareas) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tareas));
+    }
+
+    const form = document.getElementById("form-tarea");
+    const inputNombre = document.getElementById("nombre");
+    const inputDescripcion = document.getElementById("descripcion");
+    const selectPrioridad = document.getElementById("prioridad");
+    const selectEstado = document.getElementById("estado");
+    const btnGuardar = document.getElementById("btn-guardar");
+    const mensaje = document.getElementById("mensaje");
+    const cuerpoTabla = document.getElementById("cuerpo-tabla");
+    const vacio = document.getElementById("vacio");
+    const btnFiltros = document.querySelectorAll(".btn-filtro");
+
+    let modoEdicion = false;
+    let tareaEditandoId = null;
+
+    function mostrarMensaje(texto, tipo) {
+      mensaje.textContent = texto;
+      mensaje.className = "mensaje " + tipo;
+      mensaje.style.display = "block";
+      setTimeout(() => { mensaje.style.display = "none"; }, 4000);
+    }
+
+    function escapeHtml(texto) {
+      if (!texto) return "";
+      const div = document.createElement("div");
+      div.textContent = texto;
+      return div.innerHTML;
+    }
+
+    function renderizarTareas() {
+      cuerpoTabla.innerHTML = "";
+      const tareas = obtenerTareas();
+      const filtradas = filtroActual === "todos"
+        ? tareas
+        : tareas.filter(t => t.estado === filtroActual);
+
+      if (filtradas.length === 0) {
+        vacio.style.display = "block";
+      } else {
+        vacio.style.display = "none";
+        filtradas.forEach(t => {
+          const tr = document.createElement("tr");
+          const estadoClase = "estado-" + (t.estado || "pendiente").toLowerCase().replace(" ", "-");
+          tr.innerHTML = `
+            <td>${t.id}</td>
+            <td><strong>${escapeHtml(t.nombre)}</strong></td>
+            <td>${escapeHtml(t.descripcion || "")}</td>
+            <td><span class="prioridad-${(t.prioridad || "media").toLowerCase()}">${t.prioridad}</span></td>
+            <td><span class="estado-badge ${estadoClase}">${t.estado}</span></td>
+            <td>${t.fecha ? t.fecha.slice(0,16) : ""}</td>
+            <td class="acciones">
+              <button class="btn btn-warning btn-editar" data-id="${t.id}">Editar</button>
+              <button class="btn btn-success btn-estado" data-id="${t.id}" data-estado="${t.estado}">${t.estado === "Terminada" ? "Reabrir" : t.estado === "En Proceso" ? "Terminar" : "En Proceso"}</button>
+              <button class="btn btn-danger btn-eliminar" data-id="${t.id}">Eliminar</button>
+            </td>
+          `;
+          cuerpoTabla.appendChild(tr);
+        });
+      }
+
+      document.querySelectorAll(".btn-editar").forEach(b => b.addEventListener("click", e => prepararEdicion(parseInt(e.target.dataset.id))));
+      document.querySelectorAll(".btn-eliminar").forEach(b => b.addEventListener("click", e => eliminarTarea(parseInt(e.target.dataset.id))));
+      document.querySelectorAll(".btn-estado").forEach(b => b.addEventListener("click", e => cambiarEstado(parseInt(e.target.dataset.id), e.target.dataset.estado)));
+    }
+
+    function prepararEdicion(id) {
+      const tareas = obtenerTareas();
+      const t = tareas.find(x => x.id === id);
+      if (!t) return;
+      inputNombre.value = t.nombre || "";
+      inputDescripcion.value = t.descripcion || "";
+      selectPrioridad.value = t.prioridad || "Media";
+      selectEstado.value = t.estado || "Pendiente";
+      modoEdicion = true;
+      tareaEditandoId = id;
+      btnGuardar.textContent = "Actualizar tarea";
+      inputNombre.focus();
+    }
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      btnGuardar.disabled = true;
+      const nombre = inputNombre.value.trim();
+      if (!nombre) {
+        mostrarMensaje("El nombre es obligatorio", "error");
+        btnGuardar.disabled = false;
+        return;
+      }
+      const tareas = obtenerTareas();
+      const ahora = new Date().toISOString();
+      if (modoEdicion) {
+        const idx = tareas.findIndex(x => x.id === tareaEditandoId);
+        if (idx >= 0) {
+          tareas[idx] = { ...tareas[idx], nombre, descripcion: inputDescripcion.value.trim(), prioridad: selectPrioridad.value, estado: selectEstado.value };
+        }
+        modoEdicion = false;
+        tareaEditandoId = null;
+        btnGuardar.textContent = "Guardar tarea";
+        mostrarMensaje("Tarea actualizada correctamente", "exito");
+      } else {
+        const id = Date.now();
+        tareas.unshift({ id, nombre, descripcion: inputDescripcion.value.trim(), prioridad: selectPrioridad.value, estado: selectEstado.value, fecha: ahora });
+        mostrarMensaje("Tarea registrada correctamente", "exito");
+      }
+      guardarTareas(tareas);
+      form.reset();
+      selectPrioridad.value = "Media";
+      selectEstado.value = "Pendiente";
+      renderizarTareas();
+      btnGuardar.disabled = false;
+    });
+
+    function eliminarTarea(id) {
+      if (!confirm("¿Estas seguro de eliminar esta tarea?")) return;
+      const tareas = obtenerTareas().filter(x => x.id !== id);
+      guardarTareas(tareas);
+      mostrarMensaje("Tarea eliminada correctamente", "exito");
+      renderizarTareas();
+    }
+
+    function cambiarEstado(id, estadoActual) {
+      let siguiente = estadoActual === "Pendiente" ? "En Proceso" : estadoActual === "En Proceso" ? "Terminada" : "Pendiente";
+      const tareas = obtenerTareas().map(t => t.id === id ? { ...t, estado: siguiente } : t);
+      guardarTareas(tareas);
+      mostrarMensaje("Estado actualizado a " + siguiente, "exito");
+      renderizarTareas();
+    }
+
+    btnFiltros.forEach(b => {
+      b.addEventListener("click", () => {
+        btnFiltros.forEach(x => x.classList.remove("activo"));
+        b.classList.add("activo");
+        filtroActual = b.dataset.estado;
+        renderizarTareas();
+      });
+    });
+
+    renderizarTareas();
+  </script>
+</body>
+</html>
