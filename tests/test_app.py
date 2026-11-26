@@ -1,19 +1,3 @@
-import pytest
-
-from app import app, init_db
-
-
-@pytest.fixture
-def client(tmp_path):
-    """Cliente de pruebas con una base de datos SQLite temporal y aislada."""
-    app.config["TESTING"] = True
-    app.config["DB_PATH"] = str(tmp_path / "test_tasks.db")
-    init_db()
-
-    with app.test_client() as client:
-        yield client
-
-
 def test_pagina_principal(client):
     """CP00: La interfaz principal carga correctamente."""
     respuesta = client.get("/")
