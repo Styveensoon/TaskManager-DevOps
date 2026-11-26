@@ -1,0 +1,215 @@
+﻿2026-11-24T17:25:20.1662340Z Current runner version: '2.338.2'
+2026-11-24T17:25:20.1690415Z ##[group]Runner Image Provisioner
+2026-11-24T17:25:20.1691471Z Hosted Compute Agent
+2026-11-24T17:25:20.1692069Z Version: 20261111.635
+2026-11-24T17:25:20.1692677Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-24T17:25:20.1693496Z Build Date: 2026-11-11T01:49:01Z
+2026-11-24T17:25:20.1694226Z Worker ID: {22b0bfab-87c3-4338-8144-be6c94c880f0}
+2026-11-24T17:25:20.1695035Z Region: westus
+2026-11-24T17:25:20.1695572Z Cloud: Azure
+2026-11-24T17:25:20.1696135Z ##[endgroup]
+2026-11-24T17:25:20.1697716Z ##[group]Operating System
+2026-11-24T17:25:20.1698524Z Ubuntu
+2026-11-24T17:25:20.1699161Z 26.04.1
+2026-11-24T17:25:20.1699681Z LTS
+2026-11-24T17:25:20.1700189Z ##[endgroup]
+2026-11-24T17:25:20.1700790Z ##[group]Runner Image
+2026-11-24T17:25:20.1701416Z Image: ubuntu-26.04
+2026-11-24T17:25:20.1702040Z Version: 20261116.202.1
+2026-11-24T17:25:20.1703404Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-24T17:25:20.1705019Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-24T17:25:20.1706032Z ##[endgroup]
+2026-11-24T17:25:20.1707295Z ##[group]GITHUB_TOKEN Permissions
+2026-11-24T17:25:20.1710015Z Contents: read
+2026-11-24T17:25:20.1710755Z Metadata: read
+2026-11-24T17:25:20.1711344Z Packages: read
+2026-11-24T17:25:20.1711944Z ##[endgroup]
+2026-11-24T17:25:20.1715265Z Secret source: Actions
+2026-11-24T17:25:20.1716230Z Cache mode: write
+2026-11-24T17:25:20.1717011Z Prepare workflow directory
+2026-11-24T17:25:20.2085511Z Prepare all required actions
+2026-11-24T17:25:20.2138864Z Getting action download info
+2026-11-24T17:25:20.5795586Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-24T17:25:20.7665881Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-11-24T17:25:20.9683175Z Complete job name: pruebas
+2026-11-24T17:25:21.0629650Z ##[group]Run actions/checkout@v4
+2026-11-24T17:25:21.0630627Z with:
+2026-11-24T17:25:21.0631123Z   repository: Styveensoon/TaskManager-DevOps
+2026-11-24T17:25:21.0634963Z   token: ***
+2026-11-24T17:25:21.0635404Z   ssh-strict: true
+2026-11-24T17:25:21.0635840Z   ssh-user: git
+2026-11-24T17:25:21.0636294Z   persist-credentials: true
+2026-11-24T17:25:21.0636788Z   clean: true
+2026-11-24T17:25:21.0637236Z   sparse-checkout-cone-mode: true
+2026-11-24T17:25:21.0637757Z   fetch-depth: 1
+2026-11-24T17:25:21.0638598Z   fetch-tags: false
+2026-11-24T17:25:21.0639359Z   show-progress: true
+2026-11-24T17:25:21.0640097Z   lfs: false
+2026-11-24T17:25:21.0640518Z   submodules: false
+2026-11-24T17:25:21.0640965Z   set-safe-directory: true
+2026-11-24T17:25:21.0641459Z   allow-unsafe-pr-checkout: false
+2026-11-24T17:25:21.0642312Z ##[endgroup]
+2026-11-24T17:25:21.8688799Z Syncing repository: Styveensoon/TaskManager-DevOps
+2026-11-24T17:25:21.8691066Z ##[group]Getting Git version info
+2026-11-24T17:25:21.8692114Z Working directory is '/home/runner/work/TaskManager-DevOps/TaskManager-DevOps'
+2026-11-24T17:25:21.8693309Z [command]/usr/bin/git version
+2026-11-24T17:25:21.8714886Z git version 2.56.1
+2026-11-24T17:25:21.8741692Z ##[endgroup]
+2026-11-24T17:25:21.8764184Z Temporarily overriding HOME='/home/runner/work/_temp/432e1262-c5e8-437a-bfbb-8e099a6d4ec2' before making global git config changes
+2026-11-24T17:25:21.8767006Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-24T17:25:21.8771275Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TaskManager-DevOps/TaskManager-DevOps
+2026-11-24T17:25:21.9074796Z Deleting the contents of '/home/runner/work/TaskManager-DevOps/TaskManager-DevOps'
+2026-11-24T17:25:21.9078669Z ##[group]Initializing the repository
+2026-11-24T17:25:21.9085070Z [command]/usr/bin/git init /home/runner/work/TaskManager-DevOps/TaskManager-DevOps
+2026-11-24T17:25:21.9232359Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-24T17:25:21.9235005Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-24T17:25:21.9236959Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-24T17:25:21.9238726Z hint: call:
+2026-11-24T17:25:21.9239872Z hint:
+2026-11-24T17:25:21.9241029Z hint: 	git config --global init.defaultBranch <name>
+2026-11-24T17:25:21.9242292Z hint:
+2026-11-24T17:25:21.9243595Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-24T17:25:21.9245511Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-24T17:25:21.9247080Z hint:
+2026-11-24T17:25:21.9248318Z hint: 	git branch -m <name>
+2026-11-24T17:25:21.9249475Z hint:
+2026-11-24T17:25:21.9251081Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-24T17:25:21.9255643Z Initialized empty Git repository in /home/runner/work/TaskManager-DevOps/TaskManager-DevOps/.git/
+2026-11-24T17:25:21.9269380Z [command]/usr/bin/git remote add origin https://github.com/Styveensoon/TaskManager-DevOps
+2026-11-24T17:25:21.9537767Z ##[endgroup]
+2026-11-24T17:25:21.9539849Z ##[group]Disabling automatic garbage collection
+2026-11-24T17:25:21.9542387Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-24T17:25:21.9587709Z ##[endgroup]
+2026-11-24T17:25:21.9589562Z ##[group]Setting up auth
+2026-11-24T17:25:21.9595963Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-24T17:25:21.9642890Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-24T17:25:22.0620427Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-24T17:25:22.0660208Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-24T17:25:22.0960261Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-24T17:25:22.1001569Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-24T17:25:22.1298267Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-24T17:25:22.1563614Z ##[endgroup]
+2026-11-24T17:25:22.1566023Z ##[group]Fetching the repository
+2026-11-24T17:25:22.1576528Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +f53af70a8c86667503a52167910d403b63f3b7e1:refs/remotes/origin/main
+2026-11-24T17:25:22.6152346Z From https://github.com/Styveensoon/TaskManager-DevOps
+2026-11-24T17:25:22.6155181Z  * [new ref]         f53af70a8c86667503a52167910d403b63f3b7e1 -> origin/main
+2026-11-24T17:25:22.6161556Z ##[endgroup]
+2026-11-24T17:25:22.6164270Z ##[group]Determining the checkout info
+2026-11-24T17:25:22.6167096Z ##[endgroup]
+2026-11-24T17:25:22.6170803Z [command]/usr/bin/git sparse-checkout disable
+2026-11-24T17:25:22.6238250Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-24T17:25:22.6276473Z ##[group]Checking out the ref
+2026-11-24T17:25:22.6281828Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-11-24T17:25:22.6415189Z Switched to a new branch 'main'
+2026-11-24T17:25:22.6422347Z branch 'main' set up to track 'origin/main'.
+2026-11-24T17:25:22.6432239Z ##[endgroup]
+2026-11-24T17:25:22.6490508Z [command]/usr/bin/git log -1 --format=%H
+2026-11-24T17:25:22.6524353Z f53af70a8c86667503a52167910d403b63f3b7e1
+2026-11-24T17:25:22.6969196Z ##[group]Run actions/setup-python@v5
+2026-11-24T17:25:22.6970568Z with:
+2026-11-24T17:25:22.6971470Z   python-version: 3.12
+2026-11-24T17:25:22.6972544Z   check-latest: false
+2026-11-24T17:25:22.6982570Z   token: ***
+2026-11-24T17:25:22.6983830Z   update-environment: true
+2026-11-24T17:25:22.6984971Z   allow-prereleases: false
+2026-11-24T17:25:22.6986081Z   freethreaded: false
+2026-11-24T17:25:22.6987087Z ##[endgroup]
+2026-11-24T17:25:22.8491420Z ##[group]Installed versions
+2026-11-24T17:25:22.8624239Z (node:2389) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-24T17:25:22.8630841Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-24T17:25:22.8634588Z Successfully set up CPython (3.12.16)
+2026-11-24T17:25:22.8638500Z ##[endgroup]
+2026-11-24T17:25:22.8952971Z ##[group]Run python -m pip install --upgrade pip
+2026-11-24T17:25:22.8955542Z [36;1mpython -m pip install --upgrade pip[0m
+2026-11-24T17:25:22.8957820Z [36;1mpip install -r requirements.txt[0m
+2026-11-24T17:25:22.9042096Z shell: /usr/bin/bash -e {0}
+2026-11-24T17:25:22.9043894Z env:
+2026-11-24T17:25:22.9045706Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-24T17:25:22.9150285Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+2026-11-24T17:25:22.9153474Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-24T17:25:22.9156108Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-24T17:25:22.9159256Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-24T17:25:22.9162205Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+2026-11-24T17:25:22.9164694Z ##[endgroup]
+2026-11-24T17:25:23.7720704Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages (26.3)
+2026-11-24T17:25:24.3309212Z Collecting flask>=3.0.0 (from -r requirements.txt (line 1))
+2026-11-24T17:25:24.3535442Z   Downloading flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+2026-11-24T17:25:24.4026383Z Collecting pytest>=8.0.0 (from -r requirements.txt (line 2))
+2026-11-24T17:25:24.4066226Z   Downloading pytest-9.2.0-py3-none-any.whl.metadata (7.9 kB)
+2026-11-24T17:25:24.4351144Z Collecting gunicorn>=22.0.0 (from -r requirements.txt (line 3))
+2026-11-24T17:25:24.4405653Z   Downloading gunicorn-27.0.1-py3-none-any.whl.metadata (5.6 kB)
+2026-11-24T17:25:24.4619789Z Collecting blinker>=1.9.0 (from flask>=3.0.0->-r requirements.txt (line 1))
+2026-11-24T17:25:24.4651240Z   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+2026-11-24T17:25:24.4889420Z Collecting click>=8.1.3 (from flask>=3.0.0->-r requirements.txt (line 1))
+2026-11-24T17:25:24.4927565Z   Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+2026-11-24T17:25:24.5114108Z Collecting itsdangerous>=2.2.0 (from flask>=3.0.0->-r requirements.txt (line 1))
+2026-11-24T17:25:24.5145362Z   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+2026-11-24T17:25:24.5438277Z Collecting jinja2>=3.1.2 (from flask>=3.0.0->-r requirements.txt (line 1))
+2026-11-24T17:25:24.5476706Z   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+2026-11-24T17:25:24.6316401Z Collecting markupsafe>=2.1.1 (from flask>=3.0.0->-r requirements.txt (line 1))
+2026-11-24T17:25:24.6351846Z   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+2026-11-24T17:25:24.6609162Z Collecting werkzeug>=3.1.0 (from flask>=3.0.0->-r requirements.txt (line 1))
+2026-11-24T17:25:24.6643400Z   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+2026-11-24T17:25:24.6840119Z Collecting iniconfig>=2 (from pytest>=8.0.0->-r requirements.txt (line 2))
+2026-11-24T17:25:24.6874652Z   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+2026-11-24T17:25:24.7101004Z Collecting packaging>=24 (from pytest>=8.0.0->-r requirements.txt (line 2))
+2026-11-24T17:25:24.7139589Z   Downloading packaging-26.4-py3-none-any.whl.metadata (3.5 kB)
+2026-11-24T17:25:24.7342651Z Collecting pluggy<2,>=1.6 (from pytest>=8.0.0->-r requirements.txt (line 2))
+2026-11-24T17:25:24.7380519Z   Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+2026-11-24T17:25:24.7622253Z Collecting pygments>=2.15 (from pytest>=8.0.0->-r requirements.txt (line 2))
+2026-11-24T17:25:24.7680498Z   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+2026-11-24T17:25:24.7925987Z Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+2026-11-24T17:25:24.7999695Z Downloading pytest-9.2.0-py3-none-any.whl (411 kB)
+2026-11-24T17:25:24.8125343Z Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+2026-11-24T17:25:24.8198706Z Downloading gunicorn-27.0.1-py3-none-any.whl (263 kB)
+2026-11-24T17:25:24.8265462Z Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+2026-11-24T17:25:24.8336447Z Downloading click-8.5.1-py3-none-any.whl (126 kB)
+2026-11-24T17:25:24.8390919Z Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+2026-11-24T17:25:24.8449005Z Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+2026-11-24T17:25:24.8511553Z Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+2026-11-24T17:25:24.8574260Z Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+2026-11-24T17:25:24.8667287Z Downloading packaging-26.4-py3-none-any.whl (140 kB)
+2026-11-24T17:25:24.8746255Z Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+2026-11-24T17:25:24.8878953Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 165.4 MB/s  0:00:00
+2026-11-24T17:25:24.8925304Z Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+2026-11-24T17:25:24.9697596Z Installing collected packages: pygments, pluggy, packaging, markupsafe, itsdangerous, iniconfig, gunicorn, click, blinker, werkzeug, pytest, jinja2, flask
+2026-11-24T17:25:26.7269235Z 
+2026-11-24T17:25:26.7288248Z Successfully installed blinker-1.9.0 click-8.5.1 flask-3.1.3 gunicorn-27.0.1 iniconfig-2.3.1 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.4 packaging-26.4 pluggy-1.7.0 pygments-2.21.0 pytest-9.2.0 werkzeug-3.1.9
+2026-11-24T17:25:26.8111366Z ##[group]Run PYTHONPATH=. pytest
+2026-11-24T17:25:26.8111770Z [36;1mPYTHONPATH=. pytest[0m
+2026-11-24T17:25:26.8147761Z shell: /usr/bin/bash -e {0}
+2026-11-24T17:25:26.8148294Z env:
+2026-11-24T17:25:26.8148631Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-24T17:25:26.8149210Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+2026-11-24T17:25:26.8149788Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-24T17:25:26.8150301Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-24T17:25:26.8150805Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-24T17:25:26.8151317Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+2026-11-24T17:25:26.8151740Z ##[endgroup]
+2026-11-24T17:25:27.2723013Z ============================= test session starts ==============================
+2026-11-24T17:25:27.2724107Z platform linux -- Python 3.12.16, pytest-9.2.0, pluggy-1.7.0
+2026-11-24T17:25:27.2724980Z rootdir: /home/runner/work/TaskManager-DevOps/TaskManager-DevOps
+2026-11-24T17:25:27.2725625Z collected 7 items
+2026-11-24T17:25:27.2725834Z 
+2026-11-24T17:25:27.3224694Z tests/test_app.py .......                                                [100%]
+2026-11-24T17:25:27.3225405Z 
+2026-11-24T17:25:27.3225704Z ============================== 7 passed in 0.19s ===============================
+2026-11-24T17:25:27.3813284Z Post job cleanup.
+2026-11-24T17:25:27.5232874Z (node:2450) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-24T17:25:27.5234138Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-24T17:25:27.5524159Z Post job cleanup.
+2026-11-24T17:25:27.6666249Z [command]/usr/bin/git version
+2026-11-24T17:25:27.6723888Z git version 2.56.1
+2026-11-24T17:25:27.6775312Z Temporarily overriding HOME='/home/runner/work/_temp/ed7be01f-f05c-46a4-a379-0bcd32290dbf' before making global git config changes
+2026-11-24T17:25:27.6776660Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-24T17:25:27.6783145Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TaskManager-DevOps/TaskManager-DevOps
+2026-11-24T17:25:27.6849289Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-24T17:25:27.6912216Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-24T17:25:27.7387864Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-24T17:25:27.7426464Z http.https://github.com/.extraheader
+2026-11-24T17:25:27.7454223Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-24T17:25:27.7497294Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-24T17:25:27.7894904Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-24T17:25:27.7945719Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-24T17:25:27.8457292Z Cleaning up orphan processes
+2026-11-24T17:25:27.8889839Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
