@@ -1,24 +1,27 @@
 import os
+import sqlite3
 from datetime import datetime
 from flask import Flask, render_template, request, jsonify, send_from_directory
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 
-# Ruta absoluta de la base de datos SQLite (funciona en local y en despliegue)
+# Ruta absoluta de la base de datos SQLite (funciona en local y en despliegue).
+# TASKMANAGER_DB permite usar otra base de datos sin cambiar el codigo.
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "tasks.db")
+DEFAULT_DB_PATH = os.environ.get("TASKMANAGER_DB", os.path.join(BASE_DIR, "tasks.db"))
+app.config.setdefault("DB_PATH", DEFAULT_DB_PATH)
+app.config.setdefault("APP_VERSION", os.environ.get("APP_VERSION", "1.0.0"))
+app.json.ensure_ascii = False
 
 
-def get_db_connection():
-    import sqlite3
-
-    conn = sqlite3.connect(DB_PATH)
+def get_db_connection(db_path=None):
+    conn = sqlite3.connect(db_path or app.config["DB_PATH"])
     conn.row_factory = sqlite3.Row
     return conn
 
 
-def init_db():
-    conn = get_db_connection()
+def init_db(db_path=None):
+    conn = get_db_connection(db_path)
     conn.execute(
         """
         CREATE TABLE IF NOT EXISTS tareas (
@@ -42,6 +45,30 @@ init_db()
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/health")
+@app.route("/api/health")
+def health():
+    """Endpoint usado por la fase de monitoreo para verificar disponibilidad."""
+    try:
+        conn = get_db_connection()
+        total = conn.execute("SELECT COUNT(*) AS total FROM tareas").fetchone()["total"]
+        conn.close()
+        return (
+            jsonify(
+                {
+                    "status": "ok",
+                    "version": app.config["APP_VERSION"],
+                    "base_de_datos": "ok",
+                    "total_tareas": total,
+                    "hora": datetime.now().isoformat(),
+                }
+            ),
+            200,
+        )
+    except Exception as exc:  # pragma: no cover - ruta de diagnostico
+        return jsonify({"status": "error", "detalle": str(exc)}), 500
 
 
 @app.route("/api/tareas", methods=["GET"])

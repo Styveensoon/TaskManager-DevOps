@@ -1,0 +1,45 @@
+name: Desplegar aplicacion en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  desplegar:
+    name: Publicar TaskManager
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Preparar artefacto del sitio
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Desplegar sitio
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Resumen del despliegue
+        run: |
+          echo "### TaskManager desplegado" >> $GITHUB_STEP_SUMMARY
+          echo "URL publica: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
