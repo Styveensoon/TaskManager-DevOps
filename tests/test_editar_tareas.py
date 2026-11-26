@@ -61,13 +61,15 @@ def test_editar_limpia_espacios_del_nombre(client):
     assert respuesta.get_json()["nombre"] == "Nombre limpio"
 
 
-def test_editar_con_nombre_vacio_conserva_el_anterior(client):
+def test_editar_con_nombre_vacio_es_rechazado(client):
     tarea = _crear_tarea(client)
 
     respuesta = client.put(f"/api/tareas/{tarea['id']}", json={"nombre": "   "})
 
-    assert respuesta.status_code == 200
-    assert respuesta.get_json()["nombre"] == tarea["nombre"]
+    assert respuesta.status_code == 400
+    # La tarea original no se modifica
+    actual = client.get(f"/api/tareas/{tarea['id']}").get_json()
+    assert actual["nombre"] == tarea["nombre"]
 
 
 def test_editar_tarea_inexistente(client):
