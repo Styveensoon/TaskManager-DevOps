@@ -1,25 +1,34 @@
 import pytest
-from app import app
+
+from app import app, init_db
 
 
 @pytest.fixture
-def client():
+def client(tmp_path):
+    """Cliente de pruebas con una base de datos SQLite temporal y aislada."""
     app.config["TESTING"] = True
-    # Usar una base de datos temporal para las pruebas
-    import os
-
-    app.config["DB_PATH"] = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "test_tasks.db"
-    )
+    app.config["DB_PATH"] = str(tmp_path / "test_tasks.db")
+    init_db()
 
     with app.test_client() as client:
         yield client
 
-    # Limpiar base de datos de prueba al finalizar
-    try:
-        os.remove(app.config["DB_PATH"])
-    except FileNotFoundError:
-        pass
+
+def test_pagina_principal(client):
+    """CP00: La interfaz principal carga correctamente."""
+    respuesta = client.get("/")
+    assert respuesta.status_code == 200
+    assert b"TaskManager" in respuesta.data
+
+
+def test_health(client):
+    """CP08: El endpoint de salud responde para el monitoreo."""
+    respuesta = client.get("/api/health")
+    assert respuesta.status_code == 200
+    datos = respuesta.get_json()
+    assert datos["status"] == "ok"
+    assert datos["base_de_datos"] == "ok"
+    assert datos["total_tareas"] == 0
 
 
 def test_registro_tarea(client):
@@ -125,3 +134,36 @@ def test_seleccionar_prioridad(client):
     )
     assert respuesta.status_code == 201
     assert respuesta.get_json()["prioridad"] == "Baja"
+
+
+def test_prioridad_invalida_usa_media(client):
+    """CP07-b: Una prioridad desconocida se normaliza a Media."""
+    respuesta = client.post(
+        "/api/tareas",
+        json={"nombre": "Prioridad rara", "prioridad": "Urgente"},
+    )
+    assert respuesta.status_code == 201
+    assert respuesta.get_json()["prioridad"] == "Media"
+
+
+def test_estado_invalido_es_rechazado(client):
+    """CP06-b: Cambiar a un estado no permitido devuelve 400."""
+    crear = client.post("/api/tareas", json={"nombre": "Estado invalido"})
+    tarea_id = crear.get_json()["id"]
+
+    respuesta = client.patch(
+        f"/api/tareas/{tarea_id}/estado", json={"estado": "Cancelada"}
+    )
+    assert respuesta.status_code == 400
+
+
+def test_editar_tarea_inexistente(client):
+    """CP04-b: Editar una tarea que no existe devuelve 404."""
+    respuesta = client.put("/api/tareas/9999", json={"nombre": "No existe"})
+    assert respuesta.status_code == 404
+
+
+def test_eliminar_tarea_inexistente(client):
+    """CP05-b: Eliminar una tarea que no existe devuelve 404."""
+    respuesta = client.delete("/api/tareas/9999")
+    assert respuesta.status_code == 404
